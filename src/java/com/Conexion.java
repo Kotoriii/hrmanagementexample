@@ -81,7 +81,8 @@ public class Conexion {
                         rs.getString("keywords"),
                         rs.getString("correo"),
                         rs.getString("horaEntrada"),
-                        rs.getString("horaSalida"));
+                        rs.getString("horaSalida"),
+                        rs.getString("estado"));
             }
 
         } catch (SQLException ex) {

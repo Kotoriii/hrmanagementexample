@@ -26,6 +26,10 @@
                         mens = "El usuario ya ha cerrado sesion el dia de hoy";
                         break;
                     }
+                    case 4: {
+                        mens = "El usuario no esta actualmente trabajando aqui";
+                        break;
+                    }
                     default: {
                         mens = "";
                     }
