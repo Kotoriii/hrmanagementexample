@@ -50,7 +50,7 @@ public class LoginB extends HttpServlet {
             } else if (!usuario.getContrasenna().equals(contra)) {
                 cnt = 2;
             } else if (ControlHorarios.getInstancia().cerroSesionXelDia(usuario)) {
-                cnt = 3;
+                cnt = 3; 
             } else if(usuario.getEstado().equals("false")){
                 cnt = 4;
             }
