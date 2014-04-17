@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.PageContext;
+import javax.websocket.Session;
 
 /**
  *
@@ -38,7 +40,10 @@ public class FlushDB extends HttpServlet {
             Conexion.getInstancia().ejecutarNonQuery("DELETE FROM controlhorarios;");
             Conexion.getInstancia().ejecutarNonQuery("DELETE FROM horas;");
             Conexion.getInstancia().ejecutarNonQuery("DELETE FROM shiftreports;");
-            response.sendRedirect("index.jsp");
+            
+            response.sendRedirect("inddex.jsp");
+            
+            
         } finally {
             out.close();
         }

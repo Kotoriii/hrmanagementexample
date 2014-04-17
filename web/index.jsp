@@ -12,10 +12,14 @@
 <html>
     <head>
         <%
-            if(session.getAttribute("usuario") == null &&
+            if(request.getSession().getAttribute("usuario") == null &&
                     ObservadorUsuario.getInstancia().getUsuario() != null){
                 session.setAttribute("usuario", ObservadorUsuario.getInstancia().getUsuario());
                 response.sendRedirect("paginaP.jsp");
+            }
+            
+            if(request.getSession().getAttribute("usuario") != null){
+           //     response.sendRedirect("paginaP.jsp");
             }
             String mens = "";
             if (request.getParameter("cnt") != null) {
@@ -65,8 +69,12 @@
         <div style="width:200px; border-style: solid; border-bottom-color: #000; padding:20px; position: absolute; top: 300px; right: 100px">
             <form method='post' action="FlushDB">
                 <p>Solo por el momento, para no tener que estar borrando cosas
-                    directamente desde la base de datos</p>
+                    directamente desde la base de datos o simulando un cierre
+                forzado de sesion</p>
                 <button type='submit' > flush DB</button>
+            </form>
+            <form method="post" action="EliminarSesion">
+                <button type='submit' > Eliminar Sesion</button>
             </form>
         </div>
 

@@ -47,7 +47,7 @@ public final class Usuario implements interfases.Subject {
         setKeyword(_keywords);
         setHoraEntrada(_horaEntrada);
         setHoraSalida(_horaSalida);
-
+ 
     }
 
     public String getId() {
@@ -179,6 +179,7 @@ public final class Usuario implements interfases.Subject {
 
     @Override
     public void removeObserver(Observer observer) {
+        observer.update(null);
         observers.remove(observer);
     }
 

@@ -16,6 +16,10 @@
         <servlet-name>FlushDB</servlet-name>
         <servlet-class>Servlets.FlushDB</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EliminarSesion</servlet-name>
+        <servlet-class>Servlets.EliminarSesion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>FlushDB</servlet-name>
         <url-pattern>/FlushDB</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarSesion</servlet-name>
+        <url-pattern>/EliminarSesion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

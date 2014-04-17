@@ -7,6 +7,7 @@ package Servlets;
 
 import com.Conexion;
 import com.ControlHorarios;
+import com.ObservadorUsuario;
 import com.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,6 +43,7 @@ public class Logout extends HttpServlet {
             
             ControlHorarios.getInstancia().cerrarSesion(usuario);
             request.getSession().setAttribute("usuario", null);
+            usuario.removeObserver(ObservadorUsuario.getInstancia());
             response.sendRedirect("index.jsp");
 
         } catch (Exception e) {
