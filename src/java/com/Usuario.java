@@ -5,17 +5,19 @@
  */
 package com;
 
+import interfases.Observer;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author Andrea
  */
-public final class Usuario {
+public final class Usuario implements interfases.Subject {
+
+    private ArrayList<Observer> observers = new ArrayList<Observer>();
 
     private String id;
     private String nombre;
@@ -40,7 +42,7 @@ public final class Usuario {
         this.Salario = _salario;
         this.correo = _correo;
         this.estado = _estado;
-        
+
         this.PrecioPorHora = _PrecioPorHora;
         setKeyword(_keywords);
         setHoraEntrada(_horaEntrada);
@@ -58,7 +60,7 @@ public final class Usuario {
 
     public Usuario() {
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -119,7 +121,7 @@ public final class Usuario {
         return horaSalida;
     }
 
-    public String  getEstado() {
+    public String getEstado() {
         return estado;
     }
 
@@ -168,4 +170,30 @@ public final class Usuario {
         }
     }
 
+    //// ###################################################################
+    // metodos del patron de observador
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer ob : observers) {
+            ob.update(this);
+        }
+    }
+
+    public ArrayList<Observer> getObservers() {
+        return observers;
+    }
+
+    public void setObservers(ArrayList<Observer> observers) {
+        this.observers = observers;
+    }
 }

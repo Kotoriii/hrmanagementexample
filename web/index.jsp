@@ -4,6 +4,7 @@
     Author     : Andrea
 --%>
 
+<%@page import="com.ObservadorUsuario"%>
 <%@page import="com.Cryptsy;"%>
 <jsp:include page="template.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -11,6 +12,11 @@
 <html>
     <head>
         <%
+            if(session.getAttribute("usuario") == null &&
+                    ObservadorUsuario.getInstancia().getUsuario() != null){
+                session.setAttribute("usuario", ObservadorUsuario.getInstancia().getUsuario());
+                response.sendRedirect("paginaP.jsp");
+            }
             String mens = "";
             if (request.getParameter("cnt") != null) {
                 switch (Integer.parseInt(request.getParameter("cnt"))) {
