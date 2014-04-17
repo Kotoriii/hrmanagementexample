@@ -77,7 +77,7 @@
             </div><!-- /.container-fluid -->
         </nav>
 
-        <div id="popover" style="z-index: 10; position: fixed; bottom: 290px; right: 70px; width: 300px; height: 150px; background-color: #F7E136;; border-radius: 50px; visibility: hidden">
+        <div id="popover" style="z-index: 10; position: fixed; bottom: 290px; right: 70px; width: 300px; height: 150px; background-color: #F7E136;; border-radius: 50px; visibility: hidden; opacity: 0.8">
             <h2 id="poptext" style="text-align:center; margin-top: 20%">such popover</h2>
         </div>
         <div id="doge" style="width: 300px; height: 350px; position: fixed; bottom: -220px; right: 100px; z-index: 10;">

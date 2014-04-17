@@ -44,7 +44,7 @@
 
         <form method="post" action="LoginB" class="container">
             <h1></h1>
-            <div class="jumbotron" style="width: 70%; margin-left: auto; margin-right: auto">
+            <div class="jumbotron" style="width: 70%; margin-left: auto; margin-right: auto; opacity: 0.96">
                 <%= "<h1>" + mens + "</h1>"%>
                 <p>ID De Usuario</p>
                 <input type="text" width="70%" name="inptId"/>
@@ -56,7 +56,7 @@
 
         <!-- para eliminar todos los contenidos de "controldehorarios",
         horas y shiftreports -->
-        <div style="width:200px; margin-left: 100px; border-style: solid; border-bottom-color: #000; padding:20px">
+        <div style="width:200px; border-style: solid; border-bottom-color: #000; padding:20px; position: absolute; top: 300px; right: 100px">
             <form method='post' action="FlushDB">
                 <p>Solo por el momento, para no tener que estar borrando cosas
                     directamente desde la base de datos</p>
@@ -67,7 +67,9 @@
         <iframe tabindex="-1" style="width: 1px; height: 1px; position: absolute; top: -100px;" src="https://accounts.google.com/o/oauth2/postmessageRelay?parent=http%3A%2F%2Fwww.coinwarz.com#rpctoken=463841963&amp;forcesecure=1" id="oauth2relay2052587594" name="oauth2relay2052587594">
 
         </iframe>
-
+        <div style=" position: fixed; bottom: 0px; left: 0px; z-index: -10;">
+            <img src="student.jpg">
+        </div>
     </body>
 
     <script type='text/javascript'>
