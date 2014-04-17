@@ -12,7 +12,6 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *
@@ -54,7 +53,7 @@ public class ControlHorarios {
                 horaEntradaHoy = rs.getTime("horaEntrada");
             }
 
-            horasTrabajoNormales = (horaSalidaHoy.getHours() - horaEntradaHoy.getHours()) - cuantasHorasExtra(usuario);
+            horasTrabajoNormales = (tiempoConectadoHoyMinutos(usuario) / 60) - cuantasHorasExtra(usuario);
 
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -68,21 +67,23 @@ public class ControlHorarios {
         //le resta 8 a las horas totales que ha trabajado hoy, se presupone
         //que un dia laboral normal es de 8 horas por lo tanto el restante 
         //son las horas extra
-        int horasExtra = tiempoDeConectadoHoy(usuario) - 8;
+        int horasExtra = (tiempoConectadoHoyMinutos(usuario) / 60) - 8;
         if (horasExtra < 0) {
             horasExtra = 0;
         }
         return horasExtra;
     }
 
-    /** Encuentra la diferencia en minutos entre tiempoMayor y Tiempomenor
+    /**
+     * Encuentra la diferencia en minutos entre tiempoMayor y Tiempomenor
+     *
      * @param tiempoMenor el tiempo que representa la hora menor. ej 5:00:00
-     * @param tiempoMayor el tiempo que representa la hora mayor. ej 10:00:00
-     * El resultado con estos parametros seria de 300 (5 * 60)
-     * //Hay que tomar en cuenta que 00:00:00 es igual a 24:00:00
+     * @param tiempoMayor el tiempo que representa la hora mayor. ej 10:00:00 El
+     * resultado con estos parametros seria de 300 (5 * 60) //Hay que tomar en
+     * cuenta que 00:00:00 es igual a 24:00:00
      * @return la diferencia en minutos
      */
-    public int getDiferenciaEnMinutos(Time tiempoMenor, Time tiempoMayor) {
+    public int getDiferenciaEnMinutos(Time tiempoMayor, Time tiempoMenor) {
 
         long diff = tiempoMenor.getTime() - tiempoMayor.getTime();
 
@@ -90,8 +91,8 @@ public class ControlHorarios {
         long diffMinutes = diff / (60 * 1000) % 60;
         long diffHours = diff / (60 * 60 * 1000) % 24;
         long diffDays = diff / (24 * 60 * 60 * 1000);
-        
-        return (int) (diffMinutes + (diffHours*60));
+
+        return (int) (diffMinutes + (diffHours * 60));
     }
 
     public boolean llegoTarde(Usuario usuario) {
@@ -125,7 +126,36 @@ public class ControlHorarios {
         return llegoTarde;
     }
 
-    public int tiempoDeConectadoHoy(Usuario usuario) {
+    public int tiempoConectadoHoyMinutos(Usuario usuario) {
+        int minutosConectado = -1;
+        try {
+            cal = Calendar.getInstance();
+            Time horaConexionHoy = new Time(00, 00, 00);
+            String SQL_BUSCAR = "Select * from controlhorarios ch where idUsuario ='" + usuario.getId() + "' and fecha='" + dateFormat.format(cal.getTime()) + "';";
+
+            Statement st = Conexion.getInstancia().conectar().createStatement();
+            ResultSet rs = st.executeQuery(SQL_BUSCAR);
+
+            if (rs.next()) {
+                horaConexionHoy = rs.getTime("horaEntrada");
+            }
+            /*
+             * No se si hay una menjor manera de hacer esto pero lo que hace aqui
+             * es que agarra las horas actuales y le resta la hora en la que se conect
+             * el formato siempre es de 24 horas
+             */
+
+            minutosConectado = getDiferenciaEnMinutos(horaConexionHoy, new Time(cal.getTimeInMillis()));
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            Conexion.getInstancia().desconectar();
+        }
+        return minutosConectado;
+    }
+
+    public int tiempoDeConectadoHoyHoras(Usuario usuario) {
         int horasConectado = -1;
         try {
             cal = Calendar.getInstance();
@@ -229,7 +259,11 @@ public class ControlHorarios {
             ResultSet rs = st.executeQuery(SQL_BUSCAR);
 
             if (rs.next()) {
-                return true;
+                if (rs.getString("horaSalida") != null) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
         } catch (SQLException ex) {

@@ -29,8 +29,13 @@
     <body>
         <div class="row">
             <div class="col-md-6">
+                <%
+                int tiempoConHoy = ControlHorarios.getInstancia().tiempoConectadoHoyMinutos(usuario);
+                int horas = tiempoConHoy / 60;
+                int minutos =  tiempoConHoy - (horas * 60);
+                %>                
                 <div class=" jumbotron" style="margin-top: 23%; border-radius: 10px;">
-                    <h4>Usted lleva <%= ControlHorarios.getInstancia().tiempoDeConectadoHoy(usuario)%> horas de estar conectado</h3>
+                    <h4>Usted lleva <%= horas %> horas y <%= minutos %> minutos de estar conectado</h3>
                         <h1>Bienvenido <%= usuario.getNombre()%>!</h1>    
                         <%                if (usuario.getRol().equals("admin")) {
                                 out.println("<p><a href=\"manejarTrabajadores.jsp\"><button class=\"btn btn-primary btn-lg\">Manejar Trabajadores</button></a></p>");
@@ -40,7 +45,7 @@
             <div class="col-md-6">
                 <div class="container" style="margin-top: 5%; width: 100%; margin-right: 100px">
                     <div class="heading">
-                        <h1 class="title">Doge!</h1>
+                        <h1 class="title"><%= usuario.getNombre() %></h1>
                         <div class="scores-container" >
                             <div class="score-container" style="height: 5%">0</div>
                             <div class="best-container" style="height: 5%">0</div>
@@ -106,8 +111,6 @@
         <script src="js/local_storage_manager.js"></script>
         <script src="js/game_manager.js"></script>
         <script src="js/application.js"></script>
-		<script>
-			alert("En ves de restar las horas, dividir los minutos");
-		</script>
+		
     </body>
 </html>
