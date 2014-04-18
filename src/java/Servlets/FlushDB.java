@@ -41,7 +41,7 @@ public class FlushDB extends HttpServlet {
             Conexion.getInstancia().ejecutarNonQuery("DELETE FROM horas;");
             Conexion.getInstancia().ejecutarNonQuery("DELETE FROM shiftreports;");
             
-            response.sendRedirect("inddex.jsp");
+            response.sendRedirect("index.jsp");
             
             
         } finally {

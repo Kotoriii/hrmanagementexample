@@ -111,6 +111,10 @@
         <script src="js/local_storage_manager.js"></script>
         <script src="js/game_manager.js"></script>
         <script src="js/application.js"></script>
-		
+         
+        <script> 
+            frases.push('Much game');      
+            frases.push('Such points');      
+        </script>
     </body>
 </html>
