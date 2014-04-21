@@ -6,6 +6,7 @@
 package com;
 
 import interfases.Observer;
+import interfases.State;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,8 @@ import java.util.List;
  * @author Andrea
  */
 public final class Usuario implements interfases.Subject {
+
+    private State changeState;
 
     private ArrayList<Observer> observers = new ArrayList<Observer>();
 
@@ -47,7 +50,8 @@ public final class Usuario implements interfases.Subject {
         setKeyword(_keywords);
         setHoraEntrada(_horaEntrada);
         setHoraSalida(_horaSalida);
- 
+
+        setChangeState(new ActiveState()); //Instancia el estado para cuando se desee cambiarlo
     }
 
     public String getId() {
@@ -132,11 +136,30 @@ public final class Usuario implements interfases.Subject {
 
     /**
      * transforma un string de palabras separas por coma en un array
-     *
+     * 
      * @param _keywords
      */
     public void setKeyword(String _keywords) {
         this.keywords = Arrays.asList(_keywords.split("\\s*,\\s*"));
+    }
+
+    // Se encarga de recorrer la lista para comparar su contenido con un string
+    public boolean comparaKeyword(String _comparar) {
+        for (String buscar : keywords) {
+            if (buscar.equals(_comparar)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Se encarga de convertir la lista en un string
+    public String hacerStringKeywords(){
+        String palabras = "";
+        for (String k : keywords){
+            palabras += k+",";
+        }
+        return palabras;
     }
 
     public void setHoraEntrada(String _horaEntrada) {
@@ -196,5 +219,34 @@ public final class Usuario implements interfases.Subject {
 
     public void setObservers(ArrayList<Observer> observers) {
         this.observers = observers;
+    }
+
+    //// ###################################################################
+    // Metodos para cambiar el estado
+    public void setChangeState(State state) {
+        this.changeState = state;
+    }
+
+    public void cambiarEstado() {
+        changeState.changeState(this);
+    }
+
+    //// ###################################################################
+    // Se usa para mostrar el empleado despues de realizar la busqueda
+    @Override
+    public String toString() {
+        return "<tr>" + "<td><h4>" + getId()+ "</h4></td>"
+                + "<td><h4>" + getNombre() + "</h4></td>"
+                + "<td><h4>" + getRol()+ "</h4></td>"
+                + "<td><h4>" + getSalario()+ "</h4></td>"
+                + "<td><h4>" + getEstado()+ "</h4></td>"
+                + "<td>" + "<a href=" + "administracion.jsp?nombre=" + getNombre()+ ""
+                + "&id=" + getId() + "" + "&puesto=" + getRol()+ ""
+                + "&salario=" + getSalario()+ "" + "&pagoHora=" + getPrecioPorHora()+ ""
+                + "&horaEntrada=" + getHoraEntrada()+ "" + "&horaSalida=" + getHoraSalida()+ ""
+                + "&email=" + getCorreo()+ "" + "&keywords=" + hacerStringKeywords()+ ""
+                + "&estado=" + getEstado()+ ">"
+                + "<input type=\"button\"value=\" Modificar \" class=\"btn btn-primary\"</a>" 
+                + "</td>" + "</tr>";
     }
 }
