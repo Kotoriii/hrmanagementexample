@@ -3,9 +3,38 @@
     Created on : Apr 11, 2014, 10:38:13 AM
     Author     : CarlosJB
 --%>
+<%@page import="java.util.List"%>
+<%@page import="com.Usuario"%>
 <jsp:include page="template.jsp" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<%
+    String nombre = (request.getParameter("nombre")) == null ? "" : request.getParameter("nombre");
+    String id = (request.getParameter("id")) == null ? "" : request.getParameter("id");
+    String puesto = (request.getParameter("puesto")) == null ? "" : request.getParameter("puesto");
+    String salario = (request.getParameter("salario")) == null ? "" : request.getParameter("salario");
+    String pagoHora = (request.getParameter("pagoHora")) == null ? "" : request.getParameter("pagoHora");
+    String horaEntrada = (request.getParameter("horaEntrada")) == null ? "" : request.getParameter("horaEntrada");
+    String horaSalida = (request.getParameter("horaSalida")) == null ? "" : request.getParameter("horaSalida");
+    String email = (request.getParameter("email")) == null ? "" : request.getParameter("email");
+    String keywords = (request.getParameter("keywords")) == null ? "" : request.getParameter("keywords");
+    String estado = (request.getParameter("estado")) == null ? "" : request.getParameter("estado");
+    
+    List<Usuario> empleados = (List<Usuario>) session.getAttribute("empleados");
+    Usuario empleado = (Usuario) session.getAttribute("empleado");
+    String busqueda = "";
+    if (empleados == null & empleado == null){
+        busqueda = "<tr>" + "<td><h4>" + "Busqueda..." + "</h4></td>" + "<tr>";
+    } else if (empleados != null){
+        for (Usuario e : empleados){
+            busqueda += e.toString();
+        }
+    } else if (empleado != null){
+        busqueda = empleado.toString();
+    }
+%>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -38,7 +67,7 @@
                                                         <h4> <span class='glyphicon glyphicon-user'></span> Nombre:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese el Nombre" name="nombre"/>
+                                                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese el Nombre" name="nombre" value="<%= nombre%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -49,7 +78,7 @@
                                                         <h4> <span class='glyphicon glyphicon-glass'></span> ID:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="id" placeholder="Ingrese el ID" name="id"/>
+                                                        <input type="text" class="form-control" id="id" placeholder="Ingrese el ID" name="id" value="<%= id%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -60,7 +89,7 @@
                                                         <h4> <span class='glyphicon glyphicon-bullhorn'></span> Puesto:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="puesto" placeholder="Ingrese el Puesto" name="puesto"/>
+                                                        <input type="text" class="form-control" id="puesto" placeholder="Ingrese el Puesto" name="puesto" value="<%= puesto%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -71,7 +100,7 @@
                                                         <h4> <span class='glyphicon glyphicon-usd'></span> Salario Mensual:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="salario" placeholder="Ingrese el Salario" name="salario"/>
+                                                        <input type="text" class="form-control" id="salario" placeholder="Ingrese el Salario" name="salario" value="<%= salario%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -82,7 +111,7 @@
                                                         <h4> <span class='glyphicon glyphicon-usd'></span> Pago Por Hora:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="pagoHora" placeholder="Ingrese el Monto por Hora" name="pagoHora"/>
+                                                        <input type="text" class="form-control" id="pagoHora" placeholder="Ingrese el Monto por Hora" name="pagoHora" value="<%= pagoHora%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -93,7 +122,7 @@
                                                         <h4> <span class='glyphicon glyphicon-time'></span> Hora Entrada:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="horaEntrada" placeholder="Ingrese la hora con el formato HH/MM/SS" name="horaEntrada"/>
+                                                        <input type="text" class="form-control" id="horaEntrada" placeholder="Ingrese la hora con el formato HH:MM:SS" name="horaEntrada" value="<%= horaEntrada%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -104,7 +133,7 @@
                                                         <h4> <span class='glyphicon glyphicon-time'></span> Hora Salida:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="horaSalida" placeholder="Ingrese la hora con el formato HH/MM/SS" name="horaSalida"/>
+                                                        <input type="text" class="form-control" id="horaSalida" placeholder="Ingrese la hora con el formato HH:MM:SS" name="horaSalida" value="<%= horaSalida%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -115,7 +144,7 @@
                                                         <h4> <span class='glyphicon glyphicon-envelope'></span> Email:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="email" placeholder="Ingrese el email" name="email"/>
+                                                        <input type="text" class="form-control" id="email" placeholder="Ingrese el email" name="email" value="<%= email%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -126,7 +155,7 @@
                                                         <h4> <span class='glyphicon glyphicon-text-width'></span> Keywords:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="keywords" placeholder="Ingrese keyworks separandolas por medio de una coma ',' " name="keywords"/>
+                                                        <input type="text" class="form-control" id="keywords" placeholder="Ingrese keyworks separandolas por medio de una coma ',' " name="keywords" value="<%= keywords%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
@@ -137,11 +166,11 @@
                                                         <h4> <span class='glyphicon glyphicon-eye-close'></span> Estado:</h4>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <input type="text" class="form-control" id="estado" placeholder="Estado del empleado" name="estado"/>
+                                                        <input type="text" class="form-control" id="estado" placeholder="Estado del empleado" name="estado" value="<%= estado%>"/>
                                                     </div>
                                                 </div>
                                             </ul>
-                                            
+
                                         </ul>
                                     </div>
 
@@ -152,13 +181,13 @@
                                                     <input type="submit" name="annadir" id="annadir" value="Ingresar Empleado" class="btn btn-primary btn-lg"/>
                                                 </div>
                                             </ul>
-                                            
+
                                             <ul class="list-group-item">
                                                 <div class="jumbotron " style="width: 100%; margin-top: 5%; margin-bottom: 5%">
                                                     <input type="submit" name="modificar" id="modificar" value="Modificar Empleado" class="btn btn-primary btn-lg"/>
                                                 </div>
                                             </ul>
-                                            
+
                                             <ul class="list-group-item">
                                                 <div class="jumbotron " style="width: 100%; margin-top: 5%; margin-bottom: 5%">
                                                     <input type="submit" name="cambiarEstado" id="cambiarEstado" value="Estado Empleado" class="btn btn-primary btn-lg"/>
@@ -182,7 +211,7 @@
                             </a>
                         </h4>
                     </div>
-                    <div id="collapseThree" class="panel-collapse collapse">
+                    <div id="collapseThree" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <form action="ResultadoBusqueda" method="post">
 
@@ -193,12 +222,12 @@
                                             <ul class="list-group-item">
                                                 <div class="row">
                                                     <div class="col-md-7">
-                                                        <input type="text" class="form-control" id="busqueda" placeholder="Busqueda" name="busqueda"/>
+                                                        <input type="text" class="form-control" id="busqueda" placeholder="Busqueda" name="busqueda" value=""/>
                                                     </div>
                                                     <div class="col-md-5">
-                                                        <select class="form-control">
+                                                        <select class="form-control" name="seleccion">
                                                             <option value="tipobusqueda">Tipo Busqueda</option>
-                                                            <option value="nommre">Nombre</option>
+                                                            <option value="nombre">Nombre</option>
                                                             <option value="id">ID</option>
                                                             <option value="keyword">Keyword</option>
                                                             <option value="estado">Estado</option>
@@ -228,8 +257,21 @@
 
             </div>
 
-        </div>
+            <table class="table table-striped">
 
+                <tr>
+                    <td><h4> <span class='glyphicon glyphicon-glass'></span> ID</h4></td>
+                    <td><h4> <span class='glyphicon glyphicon-user'></span> Empleado</h4></td>
+                    <td><h4> <span class='glyphicon glyphicon-bullhorn'></span> Puesto</h4></td>
+                    <td><h4> <span class='glyphicon glyphicon-usd'></span> Salario</h4></td>
+                    <td><h4> <span class='glyphicon glyphicon-eye-close'></span> Estado</h4></td>
+                    <td><h4> <span class='glyphicon glyphicon-pencil'></span> Modificar</h4></td>
+                </tr>
+                <%= busqueda %>
+
+            </table>
+
+        </div>
 
     </body>
 </html>
