@@ -27,12 +27,22 @@ import java.util.logging.Logger;
  */
 public class Conexion {
 
+    List<Usuario> listEmpleados = new ArrayList<Usuario>();
+    
     Connection mCon = null;
     private static Conexion conex = null;
 
     String mUser = "root";
     String mPassword = "root";
     String mUrl = "jdbc:mysql://localhost:3306/mydb";
+    
+    public void agregarResultadoBusqueda(Usuario resultado){
+        this.listEmpleados.add(resultado);
+    }
+    
+    public void vaciarLista(){
+        this.listEmpleados.clear();
+    }
 
     public Connection conectar() {
 
@@ -91,6 +101,118 @@ public class Conexion {
             desconectar();
         }
         System.out.println("El nombre no existe");
+        return null;
+    }
+    
+    public Usuario buscarPorNombre(String _nombre){
+        try {
+            String SQL_BUSCAR = "Select * from usuarios where nombre ='" + _nombre + "';";
+
+            Statement st = conectar().createStatement();
+            ResultSet rs = st.executeQuery(SQL_BUSCAR);
+
+            while (rs.next()) {
+
+                return new Usuario(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("contrasenna"),
+                        rs.getString("rol"),
+                        rs.getInt("salario"),
+                        rs.getInt("precioPorHora"),
+                        rs.getString("keywords"),
+                        rs.getString("correo"),
+                        rs.getString("horaEntrada"),
+                        rs.getString("horaSalida"),
+                        rs.getString("estado"));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            desconectar();
+        }
+        System.out.println("El nombre no existe");
+        return null;
+    }
+    
+    // Busca empleados por estado y devuielve una lista de empleados
+    public List<Usuario> buscarPorEstado(String _estado){
+        try {
+            if (listEmpleados != null)
+                vaciarLista();
+            
+            String SQL_BUSCAR = "Select * from usuarios where estado ='" + _estado + "';";
+
+            Statement st = conectar().createStatement();
+            ResultSet rs = st.executeQuery(SQL_BUSCAR);
+
+            while (rs.next()) {
+
+                Usuario empleado = new Usuario(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("contrasenna"),
+                        rs.getString("rol"),
+                        rs.getInt("salario"),
+                        rs.getInt("precioPorHora"),
+                        rs.getString("keywords"),
+                        rs.getString("correo"),
+                        rs.getString("horaEntrada"),
+                        rs.getString("horaSalida"),
+                        rs.getString("estado"));
+                
+                agregarResultadoBusqueda(empleado);
+            }
+            
+            return listEmpleados;
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            desconectar();
+        }
+        System.out.println("No hay empleados");
+        return null;
+    }
+    
+    //Devuelve una lista con todos los empleados para poder comparar con las Keywords
+    public List<Usuario> mostrarEmpleados(){
+        try {
+            if (listEmpleados != null)
+                vaciarLista();
+            
+            String SQL_BUSCAR = "Select * from usuarios;";
+
+            Statement st = conectar().createStatement();
+            ResultSet rs = st.executeQuery(SQL_BUSCAR);
+
+            while (rs.next()) {
+
+                Usuario empleado = new Usuario(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("contrasenna"),
+                        rs.getString("rol"),
+                        rs.getInt("salario"),
+                        rs.getInt("precioPorHora"),
+                        rs.getString("keywords"),
+                        rs.getString("correo"),
+                        rs.getString("horaEntrada"),
+                        rs.getString("horaSalida"),
+                        rs.getString("estado"));
+                
+                agregarResultadoBusqueda(empleado);
+            }
+            
+            return listEmpleados;
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            desconectar();
+        }
+        System.out.println("No hay empleados");
         return null;
     }
 
@@ -188,8 +310,8 @@ public class Conexion {
             String _salario, String _precioXHora, String _keyword, String _correo,
             String _horaEntrada, String _horaSalida) {
         try {
-            String SQL_CREAR = "INSERT INTO usuarios (id, nombre, contrasenna, rol, salario, precioPorHora, keywords, correo, horaEntrada, horaSalida) "
-                    + "values ('" + _id + "', '" + _nombre + "', '" + _contrasenna + ", '" + _rol + ", '" + _salario + ", '" + _precioXHora + ", '" + _keyword + "', '" + _correo + "', '" + _horaEntrada + "', '" + _horaSalida + "');";
+            String SQL_CREAR = "INSERT INTO usuarios (id, nombre, contrasenna, rol, salario, precioPorHora, keywords, correo, horaEntrada, horaSalida, estado) "
+                    + "VALUES ('" + _id + "', '" + _nombre + "', '" + _contrasenna + "', '" + _rol + "', '" + _salario + "', '" + _precioXHora + "', '" + _keyword + "', '" + _correo + "', '" + _horaEntrada + "', '" + _horaSalida + "', 'Activo');";
 
             Statement st = conectar().createStatement();
             return st.execute(SQL_CREAR);
@@ -199,7 +321,19 @@ public class Conexion {
             desconectar();
         }
         return false;
-
+    }
+    
+    public boolean crearPermiso(String _id, String _fechainicio, String _fechafinal, String _tipo, String _estado){
+        try{
+            String SQL_PERMISO = "INSERT INTO permisos (idUsuario, desdeFecha, hastaFecha, tipo, estado) " + "values ('" +_id + "', '" +_fechainicio + "', '" + _fechafinal + "', '" + _tipo + "', '"+ _estado+"');";
+            Statement st = conectar().createStatement();
+            return st.execute(SQL_PERMISO);
+        }catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            desconectar();
+        }
+        return false;
     }
 
 }
