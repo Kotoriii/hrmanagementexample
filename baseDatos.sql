@@ -21,7 +21,7 @@ CREATE  TABLE IF NOT EXISTS `mydb`.`Usuarios` (
   `correo` VARCHAR(45) NULL ,
   `horaEntrada` TIME NULL ,
   `horaSalida` TIME NULL ,
-  `estado` TINYINT(1) NULL ,
+  `estado` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
