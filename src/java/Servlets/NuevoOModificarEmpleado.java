@@ -7,6 +7,7 @@
 package Servlets;
 
 import com.Conexion;
+import com.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -49,18 +50,30 @@ public class NuevoOModificarEmpleado extends HttpServlet {
         
         String annadir = request.getParameter("annadir");
         String modificar = request.getParameter("modificar");
-        String cambiarEstado = request.getParameter("estado");
+        String cambiarEstado = request.getParameter("cambiarEstado");
+        
+        Conexion con = Conexion.getInstancia();
+        
+        Usuario empleado;
         
         try {
-            /* TODO output your page here. You may use following sample code. */
-            if ("modificar".equals(modificar)){
-                
+            if ("Modificar Empleado".equals(modificar)){
+                String SQL_MODIFICAR = "UPDATE usuarios SET rol = '" + puesto + "', salario = '" + salario + "', precioPorHora = '" + pagoHora + "', keywords = '" + keywords + "', correo = '" + email + "', horaEntrada = '" + horaEntrada + "', horaSalida = '" + horaSalida + "' WHERE id = '" + id + "' ";
+                con.ejecutarNonQuery(SQL_MODIFICAR);
+                request.getSession().setAttribute("empleado", null);
+                request.getSession().setAttribute("empleados", null);
                 response.sendRedirect("administracion.jsp");
-            } else if ("cambiarEstado".equals(cambiarEstado)) {
-                
+            } else if ("Estado Empleado".equals(cambiarEstado)) {
+                empleado = con.buscarXId(id);
+                empleado.cambiarEstado();
+                empleado.cambiarEstado();
+                String SQL_UPDATESTATE = "UPDATE usuarios SET estado = '" + empleado.getEstado() + "' WHERE id = '" + empleado.getId() + "' ";
+                con.ejecutarNonQuery(SQL_UPDATESTATE);
+                request.getSession().setAttribute("empleado", null);
+                request.getSession().setAttribute("empleados", null);
                 response.sendRedirect("administracion.jsp");
-            } else {
-                Conexion.getInstancia().crearNuevoUsuario(id, nombre, id, puesto, salario, pagoHora, keywords, email, horaEntrada, horaSalida);
+            } else if ("Ingresar Empleado".equals(annadir)) {
+                con.crearNuevoUsuario(id, nombre, id, puesto, salario, pagoHora, keywords, email, horaEntrada, horaSalida);
                 response.sendRedirect("administracion.jsp");
             }
         } finally {

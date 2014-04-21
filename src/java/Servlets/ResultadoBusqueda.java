@@ -6,8 +6,12 @@
 
 package Servlets;
 
+import com.Conexion;
+import com.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,17 +38,43 @@ public class ResultadoBusqueda extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        
+        String busqueda = request.getParameter("busqueda");
+        String seleccion = request.getParameter("seleccion");
+        
+        List<Usuario> empleados;
+        List<Usuario> listkeywords = new ArrayList<Usuario>();
+        Usuario resultado;
+        
+        Conexion con = Conexion.getInstancia();
+        
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ResultadoBusqueda</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ResultadoBusqueda at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            if (seleccion.equals("nombre")){
+                resultado = con.buscarPorNombre(busqueda);
+                request.getSession().setAttribute("empleado", resultado);
+                response.sendRedirect("administracion.jsp");
+            } else if (seleccion.equals("estado")){
+                empleados = con.buscarPorEstado(busqueda);
+                request.getSession().setAttribute("empleados", empleados);
+                response.sendRedirect("administracion.jsp");
+            } else if (seleccion.equals("keyword")){
+                empleados = con.mostrarEmpleados();
+                for (Usuario e : empleados){
+                    if (e.comparaKeyword(busqueda)){
+                        listkeywords.add(e);
+                    }
+                }
+                request.getSession().setAttribute("empleados", listkeywords);
+                response.sendRedirect("administracion.jsp");
+            } else if (seleccion.equals("id")){
+                resultado = con.buscarXId(busqueda);
+                request.getSession().setAttribute("empleado", resultado);
+                response.sendRedirect("administracion.jsp");
+            } else if (seleccion.equals("tipobusqueda") || busqueda.equals("")) {
+                request.getSession().setAttribute("empleado", null);
+                request.getSession().setAttribute("empleados", null);
+                response.sendRedirect("administracion.jsp");
+            }
         } finally {
             out.close();
         }
