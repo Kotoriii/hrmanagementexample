@@ -54,305 +54,45 @@
                                         </tr>
                                     </thead>
                                     <% 
+    int pos = 0;
                                     for (Usuario u : Conexion.getInstancia().mostrarEmpleados()) {
+                                        pos++;
                                     %> 
-                                    <input type="<%= u.getId()%>"
-                                    <input type="<%= u.getNombre()%>"
+                                    
+                                     <tr>
+                                        <td><%= pos %></td>
+                                        <td></td>
+                                        <td><%= u.getId() %></td>
+                                        <td>
+                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" value="<%= u.getSalario() %>" name="SalarioBase">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="bono"  placeholder="Bono" name="Bono">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="viaticos"  placeholder="Viaticos" name="Viaticos">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
+                                        </td>
+                                        <td>
+                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
+                                        </td>
+                                    </tr>
+                                    
                                     <% }
                                     %>
 
-                                        <tr>
-                                        <td>1</td>
-                                        <td></td>
-                                        <td>0001</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td height="29">2</td>
-                                        <td>Yan Chapel</td>
-                                        <td>0002</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>  
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0003</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0004</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0005</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0006</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0007</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0008</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0009</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Pit Sampras</td>
-                                        <td>0010</td>
-                                        <td>
-                                            <input type="number" class="form-control" id="salarioBase" placeholder="Salario base" name="SalarioBase">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="bono" placeholder="Bono" name="Bono">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="viaticos" placeholder="Viaticos" name="Viaticos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="extras" placeholder="Extras" name="Extras">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ahorro" placeholder="Ahorro" name="Ahorro">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="ccss" placeholder="CCSS" name="CCSS">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="prestamo" placeholder="Prestamos" name="Prestamos">
-                                        </td>
-                                        <td>
-                                            <input type="number" class="form-control" id="seguro" placeholder="Seguro" name="Seguro">
-                                        </td>
-                                    </tr>
+                                   
                     </tbody>
                 </table>
                 </td>

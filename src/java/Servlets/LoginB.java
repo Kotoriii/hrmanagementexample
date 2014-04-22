@@ -51,10 +51,10 @@ public class LoginB extends HttpServlet {
             } else if (!usuario.getContrasenna().equals(contra)) {
                 cnt = 2;
             } else if (ControlHorarios.getInstancia().cerroSesionXelDia(usuario)) {
-                cnt = 3; 
-            } else if(usuario.getEstado().equals("false")){
+                cnt = 3;
+            } else if (usuario.getEstado().equals("Inactivo")) {
                 cnt = 4;
-            }
+            } 
 
             if (cnt == 0) {
 
@@ -63,7 +63,7 @@ public class LoginB extends HttpServlet {
                 ControlHorarios.getInstancia().iniciarSesionXelDia(usuario);
                 usuario.registerObserver(ObservadorUsuario.getInstancia());
                 usuario.notifyObservers();
-                
+
                 response.sendRedirect("paginaP.jsp");
 
             } else {

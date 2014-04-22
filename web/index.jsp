@@ -12,16 +12,15 @@
 <html>
     <head>
         <%
-            if(request.getSession().getAttribute("usuario") == null &&
-                    ObservadorUsuario.getInstancia().getUsuario() != null){
+            if (request.getSession().getAttribute("usuario") == null
+                    && ObservadorUsuario.getInstancia().getUsuario() != null) {
                 session.setAttribute("usuario", ObservadorUsuario.getInstancia().getUsuario());
                 response.sendRedirect("paginaP.jsp");
             }
-            
-            if(request.getSession().getAttribute("usuario") != null){
-               response.sendRedirect("paginaP.jsp");
-            }
-            
+
+             if(request.getSession().getAttribute("usuario") != null){
+                response.sendRedirect("paginaP.jsp");
+             }
             String mens = "";
             if (request.getParameter("cnt") != null) {
                 switch (Integer.parseInt(request.getParameter("cnt"))) {
@@ -38,7 +37,7 @@
                         break;
                     }
                     case 4: {
-                        mens = "El usuario no esta actualmente trabajando aqui";
+                        response.sendRedirect("despedido");
                         break;
                     }
                     default: {
@@ -71,7 +70,7 @@
             <form method='post' action="FlushDB">
                 <p>Solo por el momento, para no tener que estar borrando cosas
                     directamente desde la base de datos o simulando un cierre
-                forzado de sesion</p>
+                    forzado de sesion</p>
                 <button type='submit' > flush DB</button>
             </form>
             <form method="post" action="EliminarSesion">

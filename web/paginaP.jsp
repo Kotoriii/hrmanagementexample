@@ -39,6 +39,7 @@
                         <h1>Bienvenido <%= usuario.getNombre()%>!</h1>    
                         <%                if (usuario.getRol().equals("admin")) {
                                 out.println("<p><a href=\"administracion.jsp\"><button class=\"btn btn-primary btn-lg\">Administracion</button></a></p>");
+                                 out.println("<p><a href=\"Planilla.jsp\"><button class=\"btn btn-primary btn-lg\">Planillas</button></a></p>");
                                 
                             }%>
                             <p><a href="SolicitudPermisos.jsp"><button class="btn btn-success btn-lg">Pedir Permisos</button></a></p>
