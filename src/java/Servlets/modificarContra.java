@@ -1,26 +1,24 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Servlets;
 
 import com.Conexion;
+import com.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import permiso.Permiso;
-import permiso.PermisoFactory;
 
 /**
  *
- * @author laboratorio
+ * @author Andrea
  */
-@WebServlet(name = "SolicitarPermiso", urlPatterns = {"/SolicitarPermiso"})
-public class SolicitarPermiso extends HttpServlet {
+public class modificarContra extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,35 +33,24 @@ public class SolicitarPermiso extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //String nombre = request.getParameter("nombre");
-        String id = request.getParameter("id");
-        String fechainicio = request.getParameter("fechainicio");
-        String fechafinal = request.getParameter("fechafinal");
-       // String solicitud = request.getParameter("solicitud");
-        String departamento = request.getParameter("departamento");
-        String enviar = request.getParameter("enviar");
-
-        String permiso = request.getParameter("permiso");
-        Conexion con = Conexion.getInstancia();
-        PermisoFactory permisofactory = new PermisoFactory();
-        String tipopermiso = permisofactory.getPermiso(permiso);
         try {
-            if ("Enviar".equals(enviar)) {
+            String contV = request.getParameter("contraV");
+            String contN1 = request.getParameter("contraN1");
+            String contN2 = request.getParameter("contraN2");
+            Usuario usuario = null;
 
-                String estado = "0";
-                con.crearPermiso(id, fechainicio, fechafinal, tipopermiso, estado);
-                response.sendRedirect("paginaP.jsp");
+            usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+            if (!contV.equals(usuario.getContrasenna())) {
+                response.sendRedirect("modificarContra.jsp?mens=inco1");
+            } else if (!contN1.equals(contN2)) {
+                response.sendRedirect("modificarContra.jsp?mens=inco2");
             } else {
-                //response.sendRedirect("paginaP.jsp");
-                out.println("\nid: "+id);
-                out.println("\nfecha inicio: "+fechainicio);
-                out.println("\nfechaFinal: "+fechafinal);
-                out.println("\ntipoPermiso: "+tipopermiso);
-                //out.println("\nisolicitud: "+solicitud);
-                out.println("\ndepartament: "+departamento);
-                out.println("\nenviear: "+enviar);
-            }
 
+                String sqlupdate = "Update usuarios SET contrasenna='" + contN1 + "' where id='" + usuario.getId() + "';";
+                Conexion.getInstancia().ejecutarNonQuery(sqlupdate);
+                response.sendRedirect("index.jsp");
+            }
         } finally {
             out.close();
         }
@@ -107,4 +94,5 @@ public class SolicitarPermiso extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

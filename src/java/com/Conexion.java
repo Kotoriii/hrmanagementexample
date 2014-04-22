@@ -136,6 +136,47 @@ public class Conexion {
         return null;
     }
     
+    /// todos los empleados en una lista
+     public List<Usuario> todosLosEmpleados(String _estado){
+        try {
+            if (listEmpleados != null)
+                vaciarLista();
+            
+            String SQL_BUSCAR = "Select * from usuarios;";
+
+            Statement st = conectar().createStatement();
+            ResultSet rs = st.executeQuery(SQL_BUSCAR);
+
+            
+            while (rs.next()) {
+
+                Usuario empleado = new Usuario(
+                        rs.getString("id"),
+                        rs.getString("nombre"),
+                        rs.getString("contrasenna"),
+                        rs.getString("rol"),
+                        rs.getInt("salario"),
+                        rs.getInt("precioPorHora"),
+                        rs.getString("keywords"),
+                        rs.getString("correo"),
+                        rs.getString("horaEntrada"),
+                        rs.getString("horaSalida"),
+                        rs.getString("estado"));
+                
+                agregarResultadoBusqueda(empleado);
+            }
+            
+            return listEmpleados;
+
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        } finally {
+            desconectar();
+        }
+        System.out.println("No hay empleados");
+        return null;
+    }
+    
     // Busca empleados por estado y devuielve una lista de empleados
     public List<Usuario> buscarPorEstado(String _estado){
         try {

@@ -190,7 +190,7 @@
 
                                             <ul class="list-group-item">
                                                 <div class="jumbotron " style="width: 100%; margin-top: 5%; margin-bottom: 5%">
-                                                    <input type="submit" name="cambiarEstado" id="cambiarEstado" value="Estado Empleado" class="btn btn-primary btn-lg"/>
+                                                    <input type="submit" name="cambiarEstado" id="cambiarEstado" value="Cambiar Estado" class="btn btn-primary btn-lg"/>
                                                 </div>
                                             </ul>
                                         </div>
@@ -227,6 +227,7 @@
                                                     <div class="col-md-5">
                                                         <select class="form-control" name="seleccion">
                                                             <option value="tipobusqueda">Tipo Busqueda</option>
+                                                            <option value="todos">Ver Todos</option>
                                                             <option value="nombre">Nombre</option>
                                                             <option value="id">ID</option>
                                                             <option value="keyword">Keyword</option>
@@ -272,6 +273,9 @@
             </table>
 
         </div>
+                <div style="position: fixed; top: 95%;left: 0%">
+                    <a href="paginaP.jsp" class="btn btn-primary btn-lg">Volver a la pagina principal</a>                    
+                </div>
 
     </body>
 </html>

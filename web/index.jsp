@@ -18,9 +18,9 @@
                 response.sendRedirect("paginaP.jsp");
             }
             
-           // if(request.getSession().getAttribute("usuario") != null){
-           //    response.sendRedirect("paginaP.jsp");
-           // }
+            if(request.getSession().getAttribute("usuario") != null){
+               response.sendRedirect("paginaP.jsp");
+            }
             
             String mens = "";
             if (request.getParameter("cnt") != null) {

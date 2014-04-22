@@ -38,8 +38,12 @@
                     <h4>Usted lleva <%= horas %> horas y <%= minutos %> minutos de estar conectado</h3>
                         <h1>Bienvenido <%= usuario.getNombre()%>!</h1>    
                         <%                if (usuario.getRol().equals("admin")) {
-                                out.println("<p><a href=\"manejarTrabajadores.jsp\"><button class=\"btn btn-primary btn-lg\">Manejar Trabajadores</button></a></p>");
+                                out.println("<p><a href=\"administracion.jsp\"><button class=\"btn btn-primary btn-lg\">Administracion</button></a></p>");
+                                
                             }%>
+                            <p><a href="SolicitudPermisos.jsp"><button class="btn btn-success btn-lg">Pedir Permisos</button></a></p>
+                            <p><a href="modificarContra.jsp"><button class="btn btn-success btn-lg">Cambiar Contraseña</button></a></p>
+                                
                 </div>
             </div>
             <div class="col-md-6">
